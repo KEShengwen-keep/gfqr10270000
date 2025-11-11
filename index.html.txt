@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据科学与设计思维 - 复习中心（单文件版）</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        header { background: #2c3e50; color: white; padding: 2rem; text-align: center; }
+        nav { background: #34495e; padding: 1rem; position: sticky; top: 0; z-index: 100; }
+        nav ul { display: flex; justify-content: center; flex-wrap: wrap; list-style: none; }
+        nav li { margin: 0 0.8rem; }
+        nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; transition: background 0.3s; }
+        nav a:hover { background: #2c3e50; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        .page { display: none; }
+        .page.active { display: block; }
+        /* 首页样式 */
+        .lecture-card { background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 1.5rem; margin-bottom: 2rem; transition: transform 0.3s; }
+        .lecture-card:hover { transform: translateY(-5px); }
+        .lecture-card h2 { color: #2c3e50; margin-bottom: 1rem; display: flex; align-items: center; }
+        .lecture-card h2 span { background: #3498db; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 1rem; }
+        .lecture-card p { color: #7f8c8d; margin-bottom: 1rem; }
+        .btn { display: inline-block; background: #3498db; color: white; padding: 0.8rem 1.5rem; border-radius: 4px; text-decoration: none; transition: background 0.3s; cursor: pointer; border: none; }
+        .btn:hover { background: #2980b9; }
+        /* 知识点页面通用样式 */
+        .breadcrumbs { color: #7f8c8d; margin-bottom: 2rem; }
+        .core-content { background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 2rem; margin-bottom: 2rem; }
+        .core-content h2 { color: #2c3e50; margin-bottom: 1.5rem; border-bottom: 2px solid #3498db; padding-bottom: 0.5rem; }
+        .highlight { background: #ecf0f1; padding: 1rem; border-left: 4px solid #3498db; border-radius: 4px; margin-bottom: 1.5rem; }
+        .component { margin-bottom: 2rem; }
+        .component h3 { color: #3498db; margin-bottom: 1rem; display: flex; align-items: center; }
+        .component h3 span { background: #2c3e50; color: white; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 0.8rem; font-size: 0.9rem; }
+        .component p { color: #34495e; line-height: 1.6; margin-bottom: 1rem; }
+        .component ul { margin-left: 2rem; color: #34495e; line-height: 1.8; margin-bottom: 1rem; }
+        .example { background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; }
+        .example h4 { color: #27ae60; margin-bottom: 1rem; }
+        .example-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        .example-table th, .example-table td { border: 1px solid #ddd; padding: 0.8rem; text-align: left; }
+        .example-table th { background: #f8f9fa; }
+        .formula { background: #ecf0f1; padding: 0.8rem; border-radius: 4px; font-family: 'Courier New', monospace; margin: 1rem 0; }
+        /* 思维导图页面 */
+        .mindmap-img { width: 100%; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .download-tip { background: #ecf0f1; padding: 1.2rem; border-radius: 4px; margin: 2rem 0; text-align: center; }
+        .download-tip strong { color: #3498db; }
+        /* 练习题页面 */
+        .exercise-item { margin: 2.5rem 0; }
+        .exercise-item h3 { color: #e74c3c; margin-bottom: 1rem; }
+        .answer-content { background: #ecf0f1; padding: 1rem; border-radius: 4px; margin-top: 1rem; display: none; }
+        footer { background: #2c3e50; color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>数据科学与设计思维 - 复习中心</h1>
+        <p>单文件完整版 | 涵盖10个核心知识点 + 思维导图 + 练习题</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#home" class="nav-link">首页</a></li>
+            <li><a href="#lecture1" class="nav-link">L01</a></li>
+            <li><a href="#lecture2" class="nav-link">L02</a></li>
+            <li><a href="#lecture3" class="nav-link">L03</a></li>
+            <li><a href="#lecture4" class="nav-link">L04</a></li>
+            <li><a href="#lecture5" class="nav-link">L05</a></li>
+            <li><a href="#lecture6" class="nav-link">L06</a></li>
+            <li><a href="#lecture7" class="nav-link">L07</a></li>
+            <li><a href="#lecture8" class="nav-link">L08</a></li>
+            <li><a href="#lecture9" class="nav-link">L09</a></li>
+            <li><a href="#lecture10" class="nav-link">L10</a></li>
+            <li><a href="#mindmap" class="nav-link">思维导图</a></li>
+            <li><a href="#exercises" class="nav-link">练习题</a></li>
+        </ul>
+    </nav>
+
+    <!-- 首页 -->
+    <div id="home" class="page active container">
+        <div class="lecture-card">
+            <h2><span>1</span> Lecture 01: 数据基础与重要性</h2>
+            <p>核心内容：数据定义、类型、重要性、数据 analytics 概念及应用场景（文本挖掘、情感分析、推荐系统等）</p>
+            <button class="btn nav-btn" data-target="lecture1">查看详细知识点</button>
+        </div>
+        <div class="lecture-card">
+            <h2><span>2</span> Lecture 02: 数据分析的四种类型</h2>
+            <p>核心内容：描述性、诊断性、预测性、规范性分析的定义、应用场景及成熟度模型</p>
+            <button class="btn nav-btn" data-target="lecture2">查看详细知识点</button>
+        </div>
+        <div class="lecture-card">
+            <h2><span>3</span> Lecture 03: 设计思维方法论</h2>
+            <p>核心内容：设计思维的五大组件（共情、定义、构思、原型、测试）及跨学科协作价值</p>
+            <button class="btn nav-btn" data-target="lecture3">查看详细知识点</button>
+        </div>
+        <div class="lecture-card">
+            <h2><span>4</span> Lecture 04: 数据收集方法与来源评估</h2>
+            <p>核心内容：8种常见数据收集方法、网络资源质量评估准则、数据来源可信度判断</p>
+            <button class="btn nav-btn" data-target="lecture4">查看详细知识点</button>
+        </div>
+        <div class="lecture-card">
+            <h2><span>5</span> Lecture 05: 问卷设计步骤与技巧</h2>
+            <p>核心内容：问卷设计8大步骤、10个优质问题设计技巧、常见设计误区规避</p>
+            <button class="btn nav-btn" data-target="lecture5">查看详细知识点</button>
+        </div>
+        <div class="lecture-card">
+            <h2><span>6</span> Lecture 06: 抽样方法与数据清洗</h2>
+            <p>核心内容：概率抽样（5种类型）、抽样偏差、原始数据特征及清洗方法</p>
+            <button class="btn nav-btn" data-target="lecture6">查看详细知识点</button>
+        </div>
+        <div class="lecture-card">
+            <h2><span>7</span> Lecture 07: 描述性分析核心指标</h2>
+            <p>核心内容：频率测量、集中趋势（均值/中位数/众数）、离散程度（范围/标准差）、位置测量（百分位/四分位）</p>
+            <button class="btn nav-btn" data-target="lecture7">查看详细知识点</button>
+        </div>
+        <div class="lecture-card">
+            <h2><span>8</span> Lecture 08: 预测性分析技术</h2>
+            <p>核心内容：时间序列数据、简单移动平均、指数平滑、简单线性回归的原理与应用</p>
+            <button class="btn nav-btn" data-target="lecture8">查看详细知识点</button>
+        </div>
+        <div class="lecture-card">
+            <h2><span>9</span> Lecture 09: 数据呈现图表类型与技巧</h2>
+            <p>核心内容：饼图、柱状图、折线图等7种图表的适用场景、数据呈现避坑指南</p>
+            <button class="btn nav-btn" data-target="lecture9">查看详细知识点</button>
+        </div>
+        <div class="lecture-card">
+            <h2><span>10</span> Lecture 10: 信息图表设计与可视化</h2>
+            <p>核心内容：10种信息图表类型、可视化三大目标、色彩/字体/图标/图片使用技巧</p>
+            <button class="btn nav-btn" data-target="lecture10">查看详细知识点</button>
+        </div>
+        <div class="lecture-card">
+            <h2><span>📊</span> 知识点思维导图</h2>
+            <p>核心内容：10个章节知识点总览，快速梳理知识框架</p>
+            <button class="btn nav-btn" data-target="mindmap">查看思维导图</button>
+        </div>
+        <div class="lecture-card">
+            <h2><span>✏️</span> 复习练习题</h2>
+            <p>核心内容：各章节核心练习题+答案解析，检验复习效果</p>
+            <button class="btn nav-btn" data-target="exercises">开始练习</button>
+        </div>
+    </div>
+
+    <!-- L01: 数据基础与重要性 -->
+    <div id="lecture1" class="page container">
+        <div class="breadcrumbs">
+            <a href="#home" class="nav-link">首页</a> > Lecture 01: 数据基础与重要性
+        </div>
+        <div class="core-content">
+            <h2>一、什么是数据？</h2>
+            <div class="highlight">
+                <p>数据是任何被记录的事实集合，形式多样，是信息与知识的基础载体。</p>
+            </div>
+            <div class="component">
+                <h3>核心定义</h3>
+                <p>数据是对测量、观察、事物描述的记录，可表现为：</p>
+                <ul>
+                    <li>数值型：考试分数、GPA、销售额</li>
+                    <li>字母数字型：地址、课程代码、身份证号</li>
+                </ul>
+            </div>
+            <div class="component">
+                <h3>数据存在形式</h3>
+                <ul>
+                    <li>纸质报告、计算机文件</li>
+                    <li>电子邮件、网络聊天记录</li>
+                    <li>电话语音、DVD影音文件</li>
+                </ul>
+            </div>
+
+            <h2>二、数据的重要性</h2>
+            <div class="component">
+                <ul>
+                    <li>无数据则无分析：数据是所有analytics的基础</li>
+                    <li>跨领域应用：商业、教育、政府、交通等领域的核心支撑</li>
+                    <li>决策驱动：通过数据探索提取知识，支持决策与工作开展</li>
+                </ul>
+            </div>
+
+            <h2>三、什么是数据 Analytics？</h2>
+            <div class="component">
+                <p>数据analytics是分析原始数据以提取有用知识（如模式、趋势）的科学。</p>
+                <h3>核心示例：电子设备销售分析</h3>
+                <p>某零售店3家分店3个月销售数据如下：</p>
+                <table class="example-table">
+                    <tr>
+                        <<th>发票号</</th>
+                        <<th>销售月份</</th>
+                        <<th>产品类型</</th>
+                        <<th>分店</</th>
+                        <<th>金额（港元）</</th>
+                    </tr>
+                    <tr><td>1</td><td>2024年7月</td><td>笔记本电脑</td><td>观塘</td><td>900</td></tr>
+                    <tr><td>2</td><td>2024年7月</td><td>手机</td><td>观塘</td><td>1500</td></tr>
+                    <tr><td>3</td><td>2024年7月</td><td>笔记本电脑</td><td>旺角</td><td>900</td></tr>
+                    <tr><td>4</td><td>2024年7月</td><td>笔记本电脑</td><td>中环</td><td>1200</td></tr>
+                    <tr><td>5</td><td>2024年8月</td><td>平板</td><td>观塘</td><td>1200</td></tr>
+                </table>
+                <p>通过交叉表分析，可发现：</p>
+                <ul>
+                    <li>最畅销产品：笔记本电脑（总销售额7800港元）</li>
+                    <li>最佳销售月份：8月（总销售额9600港元）</li>
+                    <li>季节性特征：平板仅在8月销售</li>
+                    <li>分店表现：观塘分店销量最佳，中环分店最差</li>
+                </ul>
+            </div>
+
+            <h2>四、数据 Analytics 应用场景</h2>
+            <div class="component">
+                <h3>1. 文本挖掘（Text Mining）</h3>
+                <ul>
+                    <li>描述性任务：相似文档分组、高频关联词汇识别</li>
+                    <li>预测性任务：文档分类、垃圾邮件识别、文本情感分析</li>
+                </ul>
+            </div>
+            <div class="component">
+                <h3>2. 情感分析（Sentiment Analysis）</h3>
+                <p>分析社交媒体等短文本中的用户观点与情感，应用包括：</p>
+                <ul>
+                    <li>新产品营销评估</li>
+                    <li>足球迷冲突预测</li>
+                    <li>选举投票趋势发现</li>
+                </ul>
+            </div>
+            <div class="component">
+                <h3>3. 推荐系统（Recommender Systems）</h3>
+                <p>基于用户行为推荐相关内容，如：</p>
+                <ul>
+                    <li>亚马逊：书籍推荐</li>
+                    <li>Netflix：电影推荐</li>
+                    <li>电商平台：商品推荐</li>
+                </ul>
+                <p>核心目标：提升销量、用户满意度与忠诚度</p>
+            </div>
+            <div class="component">
+                <h3>4. 情境化推荐（Context-based Recommendation）</h3>
+                <p>结合额外情境信息推荐，如：情人节推荐爱情电影、周末推荐休闲类内容</p>
+            </div>
+            <div class="component">
+                <h3>5. 群体推荐（Group Recommendation）</h3>
+                <p>考虑用户所处群体特征，如：独自观影 vs 与伴侣/孩子/朋友共同观影的推荐差异</p>
+            </div>
+
+            <button class="btn nav-btn" data-target="home">返回首页</button>
+        </div>
+    </div>
+
+    <!-- L02: 数据分析的四种类型 -->
+    <div id="lecture2" class="page container">
+        <div class="breadcrumbs">
+            <a href="#home" class="nav-link">首页</a> > Lecture 02: 数据分析的四种类型
+        </div>
+        <div class="core-content">
+            <div class="highlight">
+                <p>数据分析分为四个层级，从"回顾过去"到"指导未来"，复杂度与价值逐步提升，需协同使用以获取完整视角。</p>
+            </div>
+
+            <h2>数据分析层级概览</h2>
+            <ul>
+                <li>描述性（Descriptive）：发生了什么？（过去）</li>
+                <li>诊断性（Diagnostic）：为什么会发生？（过去）</li>
+                <li>预测性（Predictive）：将会发生什么？（未来）</li>
+                <li>规范性（Prescriptive）：应该做什么？（未来）</li>
+            </ul>
+
+            <div class="component">
+                <h3>一、描述性分析（Descriptive Analytics）</h3>
+                <p><strong>核心问题：发生了什么？（What happened?）</strong></p>
+                <p>帮助组织理解过去发生的事情，整合多源原始数据，提供聚合层面的洞察。</p>
+                <h4>示例：</h4>
+                <ul>
+                    <li>上月住院患者人数</li>
+                    <li>每周平均销售额</li>
+                    <li>GFQR1027课程学生成绩表现</li>
+                </ul>
+                <h4>特点：</h4>
+                <ul>
+                    <li>仅提示"对错"，不解释原因</li>
+                    <li>用途：了解组织整体状况、总结业务各维度表现</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <h3>二、诊断性分析（Diagnostic Analytics）</h3>
+                <p><strong>核心问题：为什么会发生？（Why did it happen?）</strong></p>
+                <p>通过查询与钻取（Drill-down）获取详细信息，解释异常或预期外结果的原因。</p>
+                <h4>示例：</h4>
+                <ul>
+                    <li>销售代表John 9月销售额异常低 → 钻取发现其病假5天</li>
+                    <li>零售公司未达成净利润目标 → 按产品类别钻取，定位低效品类</li>
+                </ul>
+                <h4>用途：</h4>
+                <ul>
+                    <li>深入探究特定问题的根本原因</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <h3>三、预测性分析（Predictive Analytics）</h3>
+                <p><strong>核心问题：将会发生什么？（What will happen?）</strong></p>
+                <p>基于数据提供可行动洞察，估算未来结果的可能性（无100%确定性）。</p>
+                <h4>示例：</h4>
+                <ul>
+                    <li>金融服务：信用评分（预测客户按时还款概率）</li>
+                    <li>制造业：智能手机需求预测（调整生产计划）</li>
+                    <li>零售业：商品关联购买预测（如啤酒与尿布）</li>
+                </ul>
+                <h4>用途：</h4>
+                <ul>
+                    <li>需要预判未来趋势时使用</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <h3>四、规范性分析（Prescriptive Analytics）</h3>
+                <p><strong>核心问题：应该做什么？（What should I do?）</strong></p>
+                <p>不仅预测未来，还解释原因并提供行动建议，预判决策影响以优化选择。</p>
+                <h4>示例：</h4>
+                <ul>
+                    <li>谷歌自动驾驶汽车：预判路况，决策行驶方案以避免事故</li>
+                    <li>零售业："若在尖沙咀分店新增美式中餐，销量将提升X%"</li>
+                </ul>
+                <h4>特点：</h4>
+                <ul>
+                    <li>复杂度最高，多数组织尚未日常应用</li>
+                    <li>用途：需要获取具体行动指导时使用</li>
+                </ul>
+            </div>
+
+            <h2>五、数据分析成熟度模型（Data Analytics Maturity Model）</h2>
+            <p>分析的复杂度、难度、专业性越高，带来的价值、成熟度与竞争优势越大。</p>
+            <div class="example">
+                <h4>模型层级（从低到高）：</h4>
+                <ul>
+                    <li>描述性分析（Information / Hindsight）：提供基础信息，回顾过去</li>
+                    <li>诊断性分析（Insight）：深入洞察原因</li>
+                    <li>预测性分析（Foresight）：预判未来趋势</li>
+                    <li>规范性分析（Optimization）：优化决策行动</li>
+                </ul>
+                <p>注：四种分析类型需共存，缺一不可，共同构成组织完整的数据分析体系</p>
+            </div>
+
+            <h2>六、数据分析挑战</h2>
+            <ul>
+                <li>工具选择：需考虑预算、可扩展性、集成能力、多源数据处理能力（如Excel、Power BI、Tableau）</li>
+                <li>多源数据整合：数据来源多样（网站、社交媒体、邮件等），格式各异，手动整合耗时易出错</li>
+                <li>数据可视化：需通过图表、信息图等形式呈现，提升可读性（工具：Power BI、Tableau）</li>
+                <li>数据安全：通过雇佣网络安全专家、控制访问权限、加密数据等方式降低风险</li>
+            </ul>
+
+            <button class="btn nav-btn" data-target="home">返回首页</button>
+        </div>
+    </div>
+
+    <!-- L03: 设计思维方法论 -->
+    <div id="lecture3" class="page container">
+        <div class="breadcrumbs">
+            <a href="#home" class="nav-link">首页</a> > Lecture 03: 设计思维方法论
+        </div>
+        <div class="core-content">
+            <h2 id="why">一、为什么需要设计思维？</h2>
+            <div class="highlight">
+                <p>设计思维是应对复杂问题、驱动跨学科创新的核心方法论，核心价值在于整合多元视角解决系统性问题。</p>
+            </div>
+            <ul>
+                <li>解决复杂问题：如全球变暖、能源短缺等棘手挑战</li>
+                <li>跨学科创新：创新常发生在多学科交叉领域，而非孤立学科</li>
+                <li>多元视角融合：不同领域专家协作，提供全面的问题解决视角</li>
+            </ul>
+
+            <div class="example">
+                <h4>案例：汽车碰撞事故调查</h4>
+                <p>调查小组由机械工程师、计算机科学家、城市规划师、心理学家、管理专家组成，各自聚焦不同维度：</p>
+                <ul>
+                    <li>机械工程师：车辆发动机故障</li>
+                    <li>计算机科学家：控制系统问题</li>
+                    <li>城市规划师：城市设计缺陷</li>
+                    <li>心理学家：驾驶员注意力不集中</li>
+                    <li>管理专家：驾驶员过度工作</li>
+                </ul>
+                <p>最终整合多维度结论，形成涵盖车辆、驾驶员、环境、工作条件的综合解决方案。</p>
+            </div>
+
+            <h2 id="components">二、设计思维的五大核心组件</h2>
+
+            <div class="component">
+                <h3><span>1</span> Empathize（共情）</h3>
+                <p>核心：深入了解用户需求与价值观，是以人为中心设计的基础</p>
+                <h4>实现方式：</h4>
+                <ul>
+                    <li>观察（Observe）：用户与环境的互动、想法感受、核心需求</li>
+                    <li>参与（Engage）：与用户互动访谈，挖掘深层信念与价值观</li>
+                    <li>沉浸（Immerse）：亲身体验用户场景，获取第一手感受</li>
+                </ul>
+                <h4>工具："What? How? Why?" 提问框架</h4>
+                <ul>
+                    <li>What：用户在特定场景中做什么？（具体观察）</li>
+                    <li>How：用户如何做这件事？（行为理解）</li>
+                    <li>Why：用户为何以这种方式做？（动机解读）</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <h3><span>2</span> Define（定义）</h3>
+                <p>核心：基于共情发现，提炼需求与洞察，明确聚焦的挑战的行动性问题陈述（POV）</p>
+                <h4>实现方式：</h4>
+                <ul>
+                    <li>故事分享与捕捉（Story share-and-capture）：团队分享实地发现，挖掘隐藏细节</li>
+                    <li>POV模板：明确用户、需求、洞察三者关联</li>
+                </ul>
+                <h4>示例：</h4>
+                <p>用户：参加天坛大佛诞辰活动的背包客 → 需求：高效的交通方式 → 洞察：因道路拥堵和牛群穿行，耗时2小时到达</p>
+            </div>
+
+            <div class="component">
+                <h3><span>3</span> Ideate（构思）</h3>
+                <p>核心：生成多样化潜在解决方案，探索广泛的解决空间（数量+多样性并重）</p>
+                <h4>实现方式：头脑风暴（Brainstorming）、小组会议</h4>
+                <h4>想法筛选方法：</h4>
+                <ul>
+                    <li>便利贴投票：每人3票，得票最高者入选</li>
+                    <li>四类筛选：理性选择、最令人愉悦、团队偏爱、长期愿景</li>
+                    <li>Bingo法则：选择可转化为实体/数字/体验原型的想法</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <h3><span>4</span> Prototype（原型）</h3>
+                <p>核心：将想法转化为实体形式（便利贴墙、角色扮演、实物等），验证可行性</p>
+                <h4>核心目的：</h4>
+                <ul>
+                    <li>深化共情：进一步理解用户与设计空间</li>
+                    <li>探索概念：并行测试多个方案</li>
+                    <li>测试验证：为后续测试提供可交互的载体</li>
+                    <li>启发他人：展示设计愿景</li>
+                </ul>
+                <h4>示例方法：绿野仙踪原型法（Wizard of Oz）</h4>
+                <p>模拟待测试功能（如银行聊天机器人），由团队成员后台手动响应，获取用户真实反馈</p>
+            </div>
+
+            <div class="component">
+                <h3><span>5</span> Test（测试）</h3>
+                <p>核心：收集用户反馈，迭代优化解决方案，深化对用户的理解</p>
+                <h4>核心目的：</h4>
+                <ul>
+                    <li>深入了解用户</li>
+                    <li>优化原型与解决方案</li>
+                    <li>验证并完善POV</li>
+                </ul>
+                <h4>实现方式：</h4>
+                <ul>
+                    <li>让用户体验原型，全程观察使用行为（含误用场景）</li>
+                    <li>引导式提问："为什么这对你有效/无效？""使用时的感受如何？"</li>
+                </ul>
+            </div>
+
+            <button class="btn nav-btn" data-target="home">返回首页</button>
+        </div>
+    </div>
+
+    <!-- L04: 数据收集方法与来源评估 -->
+    <div id="lecture4" class="page container">
+        <div class="breadcrumbs">
+            <a href="#home" class="nav-link">首页</a> > Lecture 04: 数据收集方法与来源评估
+        </div>
+        <div class="core-content">
+            <div class="highlight">
+                <p>数据收集需选择合适方法，同时严格评估来源可信度，学术/专业参考是确保数据质量的关键。</p>
+            </div>
+
+            <h2>一、8种常见数据收集方法</h2>
+
+            <div class="component">
+                <h3>1. 数据库（Database）</h3>
+                <p>结构化信息集合，数据按行、列、表组织，可存储用户登录日志、学生记录、销售交易等多种信息，便于访问、管理和更新。</p>
+            </div>
+
+            <div class="component">
+                <h3>2. 数据仓库（Data Warehouse）</h3>
+                <p>企业信息中央存储库，整合运营系统数据与外部数据源，是"数据库的数据库"，支持大规模数据分析。</p>
+            </div>
+
+            <div class="component">
+                <h3>3. 物联网（IoT）</h3>
+                <p>联网物理设备收集并共享数据，示例：建筑传感器（温度、移动、光线、湿度监测）、医疗设备（远程患者数据传输）。</p>
+            </div>
+
+            <div class="component">
+                <h3>4. 社交媒体（Social Media）</h3>
+                <p>获取消费者体验信息，示例：Facebook的"喜欢/不喜欢"反馈、OpenRice的餐厅体验分享。</p>
+            </div>
+
+            <div class="component">
+                <h3>5. 浏览器Cookie</h3>
+                <p>浏览器存储的小型数据，记录用户浏览行为（点击、登录、访问页面历史）。</p>
+            </div>
+
+            <div class="component">
+                <h3>6. 数据提供商（Data Providers）</h3>
+                <p>收集、整合、分类并打包信息供复用，示例：香港交易所（HKEX）提供证券历史数据，支持技术与定量研究。</p>
+            </div>
+
+            <div class="component">
+                <h3>7. 开放数据（Open Data）</h3>
+                <p>互联网上免费开放的数据，示例：</p>
+                <ul>
+                    <li>DATA.GOV.HK：提供5600+数据集（截至2025年9月）</li>
+                    <li>世界卫生组织（WHO）：194个成员国健康统计数据</li>
+                    <li>联合国儿童基金会（UNICEF）：教育、儿童福利等数据</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <h3>8. 问卷（Questionnaire）</h3>
+                <p>由一系列问题组成的研究工具，用于从受访者收集信息。</p>
+            </div>
+
+            <h2>二、网络资源质量评估准则</h2>
+            <div class="component">
+                <h3>1. 权威性（Authority）</h3>
+                <p>
+                    - 作者是否明确？与哪些组织/专业机构相关？<br>
+                    - 是否有证据表明作者是该领域专家？<br>
+                    - 示例：HKDSE成绩信息优先参考香港考试及评核局，而非私人补习学校。
+                </p>
+            </div>
+            <div class="component">
+                <h3>2. 时效性（Currency）</h3>
+                <p>
+                    - 网站更新频率如何？是否有大量无效链接？<br>
+                    - 信息时效性是否影响分析有效性？<br>
+                    - 示例：研究越南难民问题用1970-80年代数据，研究新冠疫苗有效性需最新数据。
+                </p>
+            </div>
+            <div class="component">
+                <h3>3. 准确性（Accuracy）</h3>
+                <p>
+                    - 是否无拼写/语法错误？<br>
+                    - 信息与其他来源是否一致？是否完整？<br>
+                    - 研究方法是否充分说明？
+                </p>
+            </div>
+            <div class="component">
+                <h3>4. 链接情况（Links to the site）</h3>
+                <p>
+                    - 有多少网站链接到此资源？<br>
+                    - 可通过Ubersuggest、Semrush等工具查看流量、外链数量等。
+                </p>
+            </div>
+            <div class="component">
+                <h3>5. 客观性（Objectivity）</h3>
+                <p>
+                    - 网站是否由商业组织、政党或特殊利益集团赞助？<br>
+                    - 信息是否带有偏见？语言是否中立无情绪化？
+                </p>
+            </div>
+            <div class="component">
+                <h3>6. 统一资源定位符（URL）</h3>
+                <p>
+                    - 通过域名判断可信度，示例：.edu.hk（香港教育机构）、.gov.hk（香港政府）、.hkex.com.hk（香港交易所）。
+                </p>
+            </div>
+
+            <h2>三、数据来源评估准则</h2>
+            <ul>
+                <li>收集数据使用的调查问题是否存在引导性/模糊性措辞？</li>
+                <li>样本量是否适合研究总体？（如100人样本不足以分析香港市民对北部都会区的看法）</li>
+                <li>数据收集方式与时间是否合适？（如10年前固定电话用户的智能手机使用数据不适用于当前研究）</li>
+                <li>组织开展调查并分享结果的动机是什么？</li>
+            </ul>
+
+            <h2>四、学术/专业参考的重要性</h2>
+            <p>
+                - 图书馆提供多种付费可靠资源（如Statista，涵盖80,000+主题、22,500+可信来源）<br>
+                - 许多图书馆资源经过同行评审，由领域专家审核确保可信度<br>
+                - 可靠性与准确性优先于互联网免费资源
+            </p>
+
+            <button class="btn nav-btn" data-target="home">返回首页</button>
+        </div>
+    </div>
+
+    <!-- L05: 问卷设计步骤与技巧 -->
+    <div id="lecture5" class="page container">
+        <div class="breadcrumbs">
+            <a href="#home" class="nav-link">首页</a> > Lecture 05: 问卷设计步骤与技巧
+        </div>
+        <div class="core-content">
+            <div class="highlight">
+                <p>问卷设计的核心是"简洁、无偏、针对性强"，避免常见误区，遵循科学步骤，才能收集到高质量数据。</p>
+            </div>
+
+            <h2>一、问卷设计常见误区（反面案例）</h2>
+            <div class="example">
+                <h4>案例：HKBU学生校园生活满意度调查</h4>
+                <p>问卷包含150个问题，覆盖8个校园生活领域，仅在何善衡校园4楼学生餐厅发放纸质问卷。</p>
+                <h4>三大误区：</h4>
+                <ol>
+                    <li><strong>问卷过长</strong>：150题约需25分钟完成，导致调查疲劳、高退出率，数据质量下降</li>
+                    <li><strong>抽样偏差</strong>：仅覆盖餐厅就餐学生，排除未在该餐厅用餐的学生，样本无代表性</li>
+                    <li><strong>问题设计缺陷</strong>：缺乏跳转逻辑（如回答"未在餐厅用餐"的学生仍需面对餐厅相关问题）</li>
+                </ol>
+                <h4>后果：收集的数据质量低、无代表性，无法反映真实情况</h4>
+            </div>
+
+            <h2>二、问卷设计8大步骤</h2>
+            <div class="component">
+                <h3>1. 明确目标（Define objectives）</h3>
+                <p>清晰界定调查想要获取的洞察，明确收集信息的类型与范围。</p>
+            </div>
+            <div class="component">
+                <h3>2. 确定所需信息（Decide on required information）</h3>
+                <p>基于目标，明确需要从受访者处获取的具体信息。</p>
+            </div>
+            <div class="component">
+                <h3>3. 定义目标受访者（Define target respondents）</h3>
+                <p>明确研究总体（如"所有HKBU学生"），考虑年龄、教育水平等因素设计问卷。</p>
+            </div>
+            <div class="component">
+                <h3>4. 选择问卷发放方式（Decide distribution method）</h3>
+                <p>包括访谈式（个人访谈、电话访谈）和自填式（群体发放、邮寄、现场投放、网络调查），影响问题设计与措辞。</p>
+            </div>
+            <div class="component">
+                <h3>5. 设计问题（Draft survey questions）</h3>
+                <p>与目标群体讨论确定关键问题，转化为简洁清晰的表述，控制问卷长度以提高回收率。</p>
+            </div>
+            <div class="component">
+                <h3>6. 预测试问卷（Pilot test the questionnaire）</h3>
+                <p>在小部分目标受访者中测试，检查问题理解度、顺序合理性、指导语清晰度，修订完善。</p>
+            </div>
+            <div class="component">
+                <h3>7. 抽样（Sampling）</h3>
+                <p>获取具有代表性的样本（如样本平均CGPA接近总体平均CGPA）。</p>
+            </div>
+            <div class="component">
+                <h3>8. 实施调查（Run the survey）</h3>
+                <p>通过跟进邮件提高回收率，使用经过培训的访谈者避免对受访者的无意影响。</p>
+            </div>
+
+            <h2>三、10个优质问题设计技巧</h2>
+            <div class="component">
+                <p><strong>1. 避免引导性问题</strong>：使用中立措辞，不暗示倾向。<br>
+                ❌ 错误：这个餐厅的食物有多差？ ✅ 正确：你如何评价这个餐厅的食物质量？</p>
+            </div>
+            <div class="component">
+                <p><strong>2. 避免预设性问题</strong>：不强迫受访者接受未证实的前提。<br>
+                ❌ 错误：你在哪里购买家居用品？ ✅ 正确：你是否购买家居用品？（是/否）→ 若是，请说明购买渠道。</p>
+            </div>
+            <div class="component">
+                <p><strong>3. 避免双重问题</strong>：一个问题只问一件事。<br>
+                ❌ 错误：你对家庭宽带的速度和月费满意度如何？ ✅ 正确：分别询问速度满意度和月费满意度。</p>
+            </div>
+            <div class="component">
+                <p><strong>4. 使用受访者语言</strong>：简洁明了，避免缩写、专业术语或行话。<br>
+                ❌ 错误：你喜欢智能手机的UI吗？ ✅ 正确：你喜欢智能手机的用户界面吗？</p>
+            </div>
+            <div class="component">
+                <p><strong>5. 询问受访者可回答的问题</strong>：不涉及难以记忆或未知的信息。<br>
+                ❌ 错误：你2024年的电费月均金额是多少？ ✅ 正确：你近3个月的电费月均金额大概是多少？（提供区间选项）</p>
+            </div>
+            <div class="component">
+                <p><strong>6. 避免过长问题</strong>：简洁精炼，提高回答效率与准确性。</p>
+            </div>
+            <div class="component">
+                <p><strong>7. 答案选项需穷尽</strong>：不确定时添加"其他（请注明）"选项。<br>
+                示例：你使用的智能手机品牌是？（苹果/华为/三星/.../其他：______）</p>
+            </div>
+            <div class="component">
+                <p><strong>8. 避免模糊问题</strong>：明确具体指向，不使用模糊表述。<br>
+                ❌ 错误：你经常在学生餐厅用餐吗？ ✅ 正确：你每周在学生餐厅用餐几次？（0次/1-2次/3-4次/5次以上）</p>
+            </div>
+            <div class="component">
+                <p><strong>9. 必要时才询问个人信息</strong>：年龄、收入等敏感信息可能引起反感，如需收集应放在问卷末尾。</p>
+            </div>
+            <div class="component">
+                <p><strong>10. 按主题分组问题</strong>：帮助受访者集中思路，提升回答连贯性。</p>
+            </div>
+
+            <button class="btn nav-btn" data-target="home">返回首页</button>
+        </div>
+    </div>
+
+    <!-- L06: 抽样方法与数据清洗 -->
+    <div id="lecture6" class="page container">
+        <div class="breadcrumbs">
+            <a href="#home" class="nav-link">首页</a> > Lecture 06: 抽样方法与数据清洗
+        </div>
+        <div class="core-content">
+            <div class="highlight">
+                <p>抽样的核心是获取"代表性样本"，避免偏差；原始数据常存在缺失、冗余等问题，需通过清洗确保数据质量。</p>
+            </div>
+
+            <h2>一、抽样基础概念</h2>
+            <div class="component">
+                <h3>1. 抽样定义</h3>
+                <p>通过研究总体的子集（样本），推断总体特征的过程（如品尝一口咖啡判断温度、咨询接种过HPV疫苗的朋友了解疼痛程度）。</p>
+            </div>
+            <div class="component">
+                <h3>2. 核心术语</h3>
+                <ul>
+                    <li>总体（Population）：研究感兴趣的全部对象（如所有HKBU学生、香港所有选民）</li>
+                    <li>样本（Sample）：总体的子集</li>
+                </ul>
+            </div>
+            <div class="component">
+                <h3>3. 抽样目的</h3>
+                <ul>
+                    <li>降低成本：无需研究整个总体</li>
+                    <li>减少工作量：提高研究效率</li>
+                    <li>可行性：部分总体规模过大，无法全面研究（如香港市民意见调查）</li>
+                </ul>
+            </div>
+
+            <h2>二、概率抽样（5种类型）</h2>
+            <p>概率抽样通过随机化确保总体中每个元素被选中的概率相等，样本代表性更强。</p>
+            <div class="component">
+                <h3>1. 简单随机抽样（Simple Random Sampling）</h3>
+                <p>随机选择总体中的个体，每个个体被选中的概率相同，无需提前了解总体信息。</p>
+                <p>示例：从60人的班级中随机选择10名学生。</p>
+            </div>
+            <div class="component">
+                <h3>2. 分层抽样（Stratified Sampling）</h3>
+                <p>先将总体按特征分为亚组（ strata，如收入水平、年龄范围），再从每个亚组中随机抽样，需提前了解总体信息。</p>
+                <p>示例：研究不同月收入群体的服装支出，按收入分为<1万、1-2万、2-3万、>3万组，每组抽取样本。</p>
+            </div>
+            <div class="component">
+                <h3>3. 系统抽样（Systematic Sampling）</h3>
+                <p>按固定间隔从总体列表中选择样本：</p>
+                <ul>
+                    <li>步骤：1. 制作总体成员列表；2. 随机选择前k个成员中的1个；3. 之后每k个成员选择1个</li>
+                    <li>k计算：k = 总体规模（N）/ 样本规模（n）</li>
+                    <li>示例：从12人中选4人，k=3，随机选前3人中的1人，之后每3人选1人。</li>
+                </ul>
+            </div>
+            <div class="component">
+                <h3>4. 整群抽样（Cluster Sampling）</h3>
+                <p>将总体分为集群（如按地区），随机选择部分集群，研究选中集群的所有成员。</p>
+                <p>示例：将香港按区分为集群，随机选择九龙城、沙田等集群，研究这些区的所有居民。</p>
+                <p>与分层抽样的区别：整群抽样仅研究部分集群，分层抽样研究所有亚组。</p>
+            </div>
+            <div class="component">
+                <h3>5. 多阶段抽样（Multistage Sampling）</h3>
+                <p>结合多种抽样技术，示例：先通过整群抽样选择集群，再从集群中通过简单随机抽样选择个体。</p>
+            </div>
+
+            <h2>三、抽样偏差（Bias in Sampling）</h2>
+            <div class="component">
+                <h3>1. 选择偏差（Selection Bias）</h3>
+                <p>样本无代表性，常见于覆盖不足（部分总体成员未被充分代表）。</p>
+                <p>示例：1936年《文学文摘》总统选举调查，样本来自电话簿和汽车登记名单，遗漏低收入选民（多支持罗斯福），导致预测错误。</p>
+            </div>
+            <div class="component">
+                <h3>2. 无回应偏差（Nonresponse Bias）</h3>
+                <p>选中的样本成员不愿或无法参与调查，受访者与非受访者存在显著差异。</p>
+                <p>示例：上述选举调查中，仅25%样本回应，回应者多支持兰登，导致结果偏差。</p>
+            </div>
+            <div class="component">
+                <h3>3. 自愿回应偏差（Voluntary Response Bias）</h3>
+                <p>样本成员为自愿参与，多为有强烈意见者。</p>
+                <p>示例：电台电话调查争议话题，回应者多为立场极端者。</p>
+            </div>
+
+            <h2>四、原始数据特征与清洗方法</h2>
+            <p>原始数据常存在缺失、冗余、噪声等问题，数据清洗是确保数据正确、一致、可用的过程。</p>
+            <div class="component">
+                <h3>1. 缺失数据（Missing Data）</h3>
+                <p>处理方法：</p>
+                <ul>
+                    <li>数据删除：删除含缺失值的记录（最后选择，会丢失其他有效数据）</li>
+                    <li>填充法（Imputation）：
+                        - 热平台填充：用相似记录的值填充（如4年级学生缺失GPA，用其他4年级学生平均GPA填充）
+                        - 均值/众数/中位数填充：用总体或分组的统计量填充
+                    </li>
+                </ul>
+            </div>
+            <div class="component">
+                <h3>2. 冗余数据（Redundant Data）</h3>
+                <p>无新信息的重复数据，处理方法：直接删除重复项。</p>
+            </div>
+            <div class="component">
+                <h3>3. 噪声数据（Noisy Data）</h3>
+                <p>无意义、不符合标准的数据（如HKBU学生GPA为6.0、年龄为负数），处理方法：分箱法（Binning）</p>
+                <ul>
+                    <li>步骤：1. 排序数据；2. 等分频率分箱；3. 用箱均值/中位数/边界值替换噪声数据</li>
+                </ul>
+            </div>
+            <div class="component">
+                <h3>4. 不一致数据（Inconsistent Data）</h3>
+                <p>不可能的组合（如男性员工记录为怀孕），处理方法：视为缺失值或删除。</p>
+            </div>
+            <div class="component">
+                <h3>5. 异常值（Outliers）</h3>
+                <p>与其他记录差异极大的值（如375ml可乐售价7港元，多数超市为3-4港元），处理原则：</p>
+                <ul>
+                    <li>异常值可能是合法数据，不可仅因"数值极端"删除</li>
+                    <li>需有合理理由（如测量错误）才删除</li>
+                </ul>
+            </div>
+
+            <button class="btn nav-btn" data-target="home">返回首页</button>
+        </div>
+    </div>
+
+    <!-- L07: 描述性分析核心指标 -->
+    <div id="lecture7" class="page container">
+        <div class="breadcrumbs">
+            <a href="#home" class="nav-link">首页</a> > Lecture 07: 描述性分析核心指标
+        </div>
+        <div class="core-content">
+            <div class="highlight">
+                <p>描述性分析通过四大类核心指标（频率、集中趋势、离散程度、位置），总结过去发生的事情，为后续复杂分析奠定基础。</p>
+            </div>
+
+            <h2>一、描述性分析的目的与用途</h2>
+            <div class="component">
+                <h3>核心目的</h3>
+                <p>理解过去发生的事情，通过对比基准（如月度/年度变化）识别组织优势与劣势。</p>
+            </div>
+            <div class="component">
+                <h3>主要用途</h3>
+                <ul>
+                    <li>了解组织整体状况（如各学院员工总数）</li>
+                    <li>总结业务各维度表现（如学生平均修读学分、销售额同比变化）</li>
+                </ul>
+                <p>示例：超市销售额1000万港元，需结合30%环比下降或50%同比增长的基准，才能判断表现好坏。</p>
+            </div>
+
+            <h2>二、四大类核心指标</h2>
+            <p>描述性分析的核心指标分为四类，全面刻画数据特征：</p>
+
+            <div class="component">
+                <h3>1. 频率测量（Measure of Frequency）</h3>
+                <p>描述某一数值或事件的发生次数，常用频率表呈现（左侧列列出数值/范围，右侧列列出发生频率）。</p>
+                <h4>频率分布表构建步骤</h4>
+                <ol>
+                    <li>设定类别（区间）：如按5为区间，将车辆通行数分为1-5、6-10、...、36-40</li>
+                    <li>计数统计：统计每个类别的发生次数</li>
+                    <li>制表呈现：可包含频数、百分比</li>
+                </ol>
+                <h4>示例：隧道30分钟车辆通行数频率分布（40个时段）</h4>
+                <table class="example-table">
+                    <tr>
+                        <<th>车辆通行数区间</</th>
+                        <<th>时段数（频数）</</th>
+                        <<th>百分比</</th>
+                    </tr>
+                    <tr><td>1-5</td><td>6</td><td>15.0%</td></tr>
+                    <tr><td>6-10</td><td>7</td><td>17.5%</td></tr>
+                    <tr><td>11-15</td><td>5</td><td>12.5%</td></tr>
+                    <tr><td>16-20</td><td>6</td><td>15.0%</td></tr>
+                    <tr><td>21-25</td><td>5</td><td>12.5%</td></tr>
+                    <tr><td>26-30</td><td>5</td><td>12.5%</td></tr>
+                    <tr><td>31-35</td><td>2</td><td>5.0%</td></tr>
+                    <tr><td>36-40</td><td>4</td><td>10.0%</td></tr>
+                    <tr><td>总计</td><td>40</td><td>100%</td></tr>
+                </table>
+            </div>
+
+            <div class="component">
+                <h3>2. 集中趋势测量（Measure of Central Tendency）</h3>
+                <p>估计数据分布的"中心"，常用均值、中位数、众数三大指标。</p>
+                <h4>（1）均值（Mean）</h4>
+                <p>所有数值的算术平均，公式：均值 = 所有数值之和 / 数值个数</p>
+                <div class="formula">Mean = (x₁ + x₂ + ... + xₙ) / n</div>
+                <p>示例：Class A项目分数（50,70,67,65,77,48,77,60,80,59,77），均值 = 66.36</p>
+                <p>特点：易受异常值（Outliers）影响</p>
+
+                <h4>（2）中位数（Median）</h4>
+                <p>按数值顺序排列后，位于中间位置的数值（奇数个数据取中间值，偶数个数据取中间两个值的平均）</p>
+                <p>示例1（Class A，11个分数）：排序后为48,50,59,60,65,67,70,77,77,77,80 → 中位数 = 67</p>
+                <p>示例2（Class B，10个分数）：排序后为43,55,55,59,67,68,68,75,86,90 → 中位数 = (67+68)/2 = 67.5</p>
+                <p>特点：受异常值影响小</p>
+
+                <h4>（3）众数（Mode）</h4>
+                <p>数据集中出现次数最多的数值</p>
+                <p>示例1（Class A）：77出现3次 → 众数 = 77</p>
+                <p>示例2（Class B）：55和68各出现2次 → 双众数（bimodal）</p>
+                <p>特点：可用于定性和定量数据，可能不代表分布中心</p>
+
+                <h4>三大指标与分布的关系</h4>
+                <ul>
+                    <li>正态分布（对称）：均值 = 中位数 = 众数</li>
+                    <li>正偏分布（低数值集中）：众数 < 中位数 < 均值</li>
+                    <li>负偏分布（高数值集中）：均值 < 中位数 < 众数</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <h3>3. 离散程度测量（Measure of Dispersion）</h3>
+                <p>描述数据围绕集中趋势的分散程度，弥补集中趋势指标的不足（如两家公司均值/中位数相同，但数据分布差异大）。</p>
+                <h4>（1）范围（Range）</h4>
+                <p>数据集中最大值与最小值的差，公式：范围 = 最大值 - 最小值</p>
+                <div class="formula">Range = Max - Min</div>
+                <p>示例：Class A分数范围 = 80 - 48 = 32</p>
+                <p>特点：易受异常值影响</p>
+
+                <h4>（2）标准差（Standard Deviation）</h4>
+                <p>描述数据与均值的平均距离，反映数据离散程度（值越大，离散程度越高；值越小，离散程度越低）</p>
+                <div class="formula">σ = √[Σ(x - x̄)² / n]（总体标准差）</div>
+                <p>计算步骤：</p>
+                <ol>
+                    <li>计算均值（x̄）</li>
+                    <li>计算每个数值与均值的差（x - x̄）</li>
+                    <li>平方差（(x - x̄)²）</li>
+                    <li>求和平方差（Σ(x - x̄)²）</li>
+                    <li>除以数值个数（n）得到方差</li>
+                    <li>方差开平方得到标准差</li>
+                </ol>
+                <p>正态分布特性：68%的数据在均值±1标准差内，95%在±2标准差内，99%在±3标准差内</p>
+            </div>
+
+            <div class="component">
+                <h3>4. 位置测量（Measure of Position）</h3>
+                <p>确定某一数据在数据集内的位置，常用百分位和四分位。</p>
+                <h4>（1）百分位（Percentile）</h4>
+                <p>将数据分为100等份，第p百分位表示p%的数据小于或等于该值，(100-p)%的数据大于或等于该值</p>
+                <p>计算步骤：</p>
+                <ol>
+                    <li>按升序排列数据</li>
+                    <li>计算位置：Lₚ = (n + 1) × p / 100（n为数据个数）</li>
+                    <li>找到对应位置的数值（非整数则插值计算）</li>
+                </ol>
+                <p>示例：Class A第75百分位 → L₇₅ = (11+1)×75/100 = 9 → 第9位数值 = 77</p>
+
+                <h4>（2）四分位（Quartile）</h4>
+                <p>特殊的百分位，将数据分为4等份：</p>
+                <ul>
+                    <li>Q₁（第一四分位）= 第25百分位</li>
+                    <li>Q₂（第二四分位）= 第50百分位 = 中位数</li>
+                    <li>Q₃（第三四分位）= 第75百分位</li>
+                </ul>
+            </div>
+
+            <button class="btn nav-btn" data-target="home">返回首页</button>
+        </div>
+    </div>
+
+    <!-- L08: 预测性分析技术 -->
+    <div id="lecture8" class="page container">
+        <div class="breadcrumbs">
+            <a href="#home" class="nav-link">首页</a> > Lecture 08: 预测性分析技术
+        </div>
+        <div class="core-content">
+            <div class="highlight">
+                <p>预测性分析核心是"用历史数据预测未来"，通过简单移动平均、指数平滑、线性回归三大技术，挖掘数据趋势与关系，提供概率性预测结果。</p>
+            </div>
+
+            <h2>一、预测性分析的目的与用途</h2>
+            <div class="component">
+                <h3>核心目的</h3>
+                <p>基于历史数据构建预测模型，捕捉关键趋势，应用于当前数据以预测未来事件或优化结果。</p>
+            </div>
+            <div class="component">
+                <h3>主要用途</h3>
+                <ul>
+                    <li>预测商品需求（如智能手机区域需求）</li>
+                    <li>评估未来风险（如客户信用评分）</li>
+                    <li>预判行为趋势（如消费者购买组合）</li>
+                    <li>预测资源需求（如电力价格与需求量）</li>
+                </ul>
+                <p>特点：基于概率，无100%确定性，需结合统计、建模、机器学习等技术。</p>
+            </div>
+
+            <h2>二、时间序列数据（Time Series Data）</h2>
+            <div class="component">
+                <h3>核心定义</h3>
+                <p>在等间隔时间点上记录的变量值序列（如每日恒生指数、每月销售额），包含三个核心要素：变量、数值、时间周期。</p>
+            </div>
+            <div class="component">
+                <h3>分析目标</h3>
+                <ul>
+                    <li>预测未来值（如明日恒生指数）</li>
+                    <li>描述过去趋势（如房价变化规律）</li>
+                </ul>
+                <p>常用预测技术：简单移动平均、指数平滑。</p>
+            </div>
+
+            <h2>三、简单移动平均（Simple Moving Average）</h2>
+            <div class="component">
+                <h3>核心原理</h3>
+                <p>取最近n个周期的数值平均值，作为下一个周期的预测值，适用于稳定、波动小的数据序列。</p>
+                <div class="formula">Ŷₜ₊₁ = (Yₜ + Yₜ₋₁ + Yₜ₋₂ + ... + Yₜ₋ₙ₊₁) / n</div>
+                <p>其中：Ŷₜ₊₁为t+1期预测值，Y为历史观测值，n为移动平均周期数。</p>
+            </div>
+            <div class="component">
+                <h3>示例：香港GDP预测（2000-2018年数据）</h3>
+                <p>目标：预测2019年GDP，分别计算n=2（2年移动平均）和n=3（3年移动平均）</p>
+                <table class="example-table">
+                    <tr>
+                        <<th>年份</</th>
+                        <<th>观测GDP（百万港元）</</th>
+                        <<th>n=2移动平均</</th>
+                        <<th>n=3移动平均</</th>
+                    </tr>
+                    <tr><td>2016</td><td>2,490,617</td><td>2,329,143</td><td>2,265,530</td></tr>
+                    <tr><td>2017</td><td>2,662,836</td><td>2,444,449</td><td>2,382,967</td></tr>
+                    <tr><td>2018</td><td>2,842,883</td><td>2,576,727</td><td>2,517,244</td></tr>
+                    <tr><td>2019（预测）</td><td>-</td><td>2,752,860</td><td>2,665,445</td></tr>
+                </table>
+            </div>
+            <div class="component">
+                <h3>周期数n的选择</h3>
+                <p>通过均方误差（MSE）判断：MSE越小，预测效果越好</p>
+                <ul>
+                    <li>计算步骤：误差=观测值-预测值 → 平方误差=误差² → 均方误差=平方误差均值</li>
+                    <li>示例结果：n=2时MSE=24,754,689,439；n=3时MSE=41,377,474,136 → 选择n=2</li>
+                </ul>
+                <p>特点：n越小，对数据变化响应越快，但易受短期噪声影响；n越大，平滑效果越好，但响应越慢。</p>
+            </div>
+
+            <h2>四、指数平滑（Exponential Smoothing）</h2>
+            <div class="component">
+                <h3>核心原理</h3>
+                <p>对历史数据赋予递减权重（近期数据权重更高，远期数据权重递减），解决移动平均"平等对待历史数据"的缺陷。</p>
+                <div class="formula">Ŷₜ₊₁ = αYₜ + (1-α)Ŷₜ</div>
+                <p>其中：α为平滑常数（0<α<1），Yₜ为t期观测值，Ŷₜ为t期预测值。</p>
+            </div>
+            <div class="component">
+                <h3>平滑常数α的意义</h3>
+                <ul>
+                    <li>α接近1：权重集中于近期数据，响应快（如α=0.9时，(1-α)⁴=0.0001）</li>
+                    <li>α接近0：权重均匀分布于历史数据，平滑效果强（如α=0.1时，(1-α)⁴=0.6561）</li>
+                </ul>
+            </div>
+            <div class="component">
+                <h3>示例：香港GDP预测（α=0.3与α=0.5）</h3>
+                <table class="example-table">
+                    <tr>
+                        <<th>年份
